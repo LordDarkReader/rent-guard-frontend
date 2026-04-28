@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { MapPin, Search, Send } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 const SearchBar = () => {
     const [city, setCity] = useState("Wszystkie miasta");
+    const { data: session } = useSession();
 
-    // Funkcja dla endpointu POST
+
     const handlePost = async () => {
         try {
-            const response = await fetch('http://localhost:8080/test', {
+            const response = await fetch('http://localhost:8081/test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,10 +26,10 @@ const SearchBar = () => {
         }
     };
 
-    // Funkcja dla endpointu GET
+
     const handleGet = async () => {
         try {
-            const response = await fetch('http://localhost:8080/test2',{
+            const response = await fetch('http://localhost:8081/test2',{
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${session?.accessToken}`,
@@ -57,7 +59,6 @@ const SearchBar = () => {
             </div>
 
             <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-                {/* Przycisk POST */}
                 <button 
                     onClick={handlePost}
                     className="flex items-center justify-center gap-2 w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl md:rounded-full font-bold transition-all whitespace-nowrap"
@@ -65,8 +66,6 @@ const SearchBar = () => {
                     <Search size={18} />
                     Szukaj ofert
                 </button>
-
-                {/* Dodatkowy przycisk GET */}
                 <button 
                     onClick={handleGet}
                     className="flex items-center justify-center gap-2 w-full md:w-auto bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-4 rounded-xl md:rounded-full font-semibold transition-all whitespace-nowrap"

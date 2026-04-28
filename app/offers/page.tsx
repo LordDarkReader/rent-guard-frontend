@@ -1,9 +1,16 @@
+'use client';
+
+import {useRouter} from "next/navigation";
+
 const OffersPage = () => {
+	const router = useRouter();
+
 	return (
 		<>
 			<div>
-                dupa
+                Offers
             </div>
+			<button onClick={() => router.push('/')}>home</button>
 		</>
 	);
 };
